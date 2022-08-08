@@ -28,11 +28,11 @@
 ```
 ## Admin panel Laravel
 ```
-    username : admin@gmail.com
-    password : 12345678
+    username : admin
+    password : admin
 
-	username : operator@gmail.com
-    password : 12345678
+	username : author
+    password : author
 
 ```
 
