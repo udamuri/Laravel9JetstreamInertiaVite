@@ -78,7 +78,7 @@ class PostController extends Controller
         $page = (int) $request->get('page') > 0 ? (int) $request->get('page') : 1;
         $queries = ['search', 'page'];
         return Inertia::render($this->path_render . 'Index', [
-            'models' => Post::applyFilters($request->only($queries))
+            'models' => Post::with(['user'])->applyFilters($request->only($queries))
                 ->paginateData($limit)
 				->appends(request()->query()),
             'add_link' => route($this->route_name . 'create'),

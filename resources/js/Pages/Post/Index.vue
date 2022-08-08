@@ -49,6 +49,7 @@ const props = defineProps({
 					<thead>
 						<tr>
 							<th>TITLE</th>
+							<th>USER</th>
 							<th>ACTIONS</th>
 						</tr>
 					</thead>
@@ -57,6 +58,9 @@ const props = defineProps({
 						<tr class="bg-white my-2" v-for="(item, index) in models.data" :key="index">
 							<td>
 								<Link :href="route(route_name + 'edit', item?.id)"  class="font-medium whitespace-nowrap">{{item?.title}}</Link>
+							</td>
+							<td>
+								{{item?.user?.name}}
 							</td>
 							<td class="table-report__action w-56">
 								<div class="flex justify-center items-center">
