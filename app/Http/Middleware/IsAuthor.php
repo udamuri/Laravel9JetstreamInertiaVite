@@ -17,7 +17,7 @@ class IsAuthor
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && (Auth::user()->isAuthor)) {
+        if (Auth::check() && (Auth::user()->isAuthor || Auth::user()->isAdmin)) {
 			return $next($request);
         } 
         

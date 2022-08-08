@@ -51,7 +51,10 @@ const logout = () => {
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    Beranda
+                                </JetNavLink>
+								<JetNavLink :href="route('posts.index')" :active="route().current('posts.index')">
+                                    Posts
                                 </JetNavLink>
 								<JetNavLink v-if="usePage().props?.value?.user?.isAdmin" :href="route('users.index')" :active="route().current('users.index')">
                                     Akun
@@ -213,10 +216,13 @@ const logout = () => {
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                            Beranda
+                        </JetResponsiveNavLink>
+						<JetResponsiveNavLink :href="route('posts.index')" :active="route().current('dashboard')">
+                            Post
                         </JetResponsiveNavLink>
 						<JetResponsiveNavLink v-if="usePage().props?.value?.user?.isAdmin" :href="route('users.index')" :active="route().current('users.index')">
-                            Dashboard
+                            Akun
                         </JetResponsiveNavLink>
                     </div>
 

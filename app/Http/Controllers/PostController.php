@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Http\Requests\UserRequest;
+use App\Models\Post;
+use App\Http\Requests\PostRequest;
 use Inertia\Inertia;
 
-class UserController extends Controller
+class PostController extends Controller
 {
     private $path_render;
 	private $route_name;
@@ -24,9 +24,9 @@ class UserController extends Controller
 
 	public function __construct()
 	{
-		$this->path_render = "User/";
-		$this->route_name = "users.";
-		$this->title_index = "Users";
+		$this->path_render = "Post/";
+		$this->route_name = "posts.";
+		$this->title_index = "Post";
 		$this->title_create = "Add {$this->title_index}";
 		$this->title_edit = "Edit {$this->title_index}";
 		$this->success_add = Lang::get('messages.success_add', ['attribute' => $this->title_index]);
@@ -78,8 +78,7 @@ class UserController extends Controller
         $page = (int) $request->get('page') > 0 ? (int) $request->get('page') : 1;
         $queries = ['search', 'page'];
         return Inertia::render($this->path_render . 'Index', [
-            'models' => User::applyFilters($request->only($queries))
-                ->whereRoleIn(['admin', 'author'])
+            'models' => Post::applyFilters($request->only($queries))
                 ->paginateData($limit)
 				->appends(request()->query()),
             'add_link' => route($this->route_name . 'create'),
@@ -114,9 +113,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(PostRequest $request)
     {
-        User::createWebApp($request->validated());
+        Post::createWebApp($request->validated());
 
         return redirect()->route($this->route_name . 'index')->with('success', $this->success_add);
     }
@@ -138,15 +137,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Post $post)
     {
         return Inertia::render($this->path_render . 'Create', [
 			'form_type' => 'edit',
-			'route_url' => route($this->route_name . 'update', $user->id),
+			'route_url' => route($this->route_name . 'update', $post->id),
 			'title' => $this->title_edit,
 			'role' => generalAdmin(),
 			'breadcrumb' => $this->breadcrumb_edit,
-			'model' => $user
+			'model' => $post
 		]);
     }
 
@@ -157,9 +156,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(PostRequest $request, Post $post)
     {
-        $user->updateWebApp($request->validated());
+        $post->updateWebApp($request->validated());
         return redirect()->route($this->route_name . 'index')->with('success', $this->success_edit);
     }
 

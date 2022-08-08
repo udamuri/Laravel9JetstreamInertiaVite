@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\{
-	UserController
+	UserController,
+	PostController,
 };
 
 /*
@@ -45,4 +46,13 @@ Route::middleware([
     'is-admin',
 ])->group(function () {
     Route::resource('users', UserController::class);
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'is-author',
+])->group(function () {
+    Route::resource('posts', PostController::class);
 });
